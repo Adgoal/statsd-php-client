@@ -2,10 +2,14 @@
 
 namespace Liuggio\StatsdClient;
 
+use Exception;
 use Liuggio\StatsdClient\Sender\SenderInterface;
 use Liuggio\StatsdClient\Entity\StatsdDataInterface;
-use Liuggio\StatsdClient\Exception\InvalidArgumentException;
 
+/**
+ * Class StatsdClient
+ * @package Liuggio\StatsdClient
+ */
 class StatsdClient implements StatsdClientInterface
 {
     /**
@@ -14,7 +18,7 @@ class StatsdClient implements StatsdClientInterface
     private $failSilently;
 
     /**
-     * @var \Liuggio\StatsdClient\Sender\SenderInterface
+     * @var SenderInterface
      */
     private $sender;
 
@@ -26,7 +30,7 @@ class StatsdClient implements StatsdClientInterface
     /**
      * Constructor.
      *
-     * @param \Liuggio\StatsdClient\Sender\SenderInterface $sender
+     * @param SenderInterface $sender
      * @param Boolean                                      $reducePacket
      * @param Boolean                                      $fail_silently
      */
@@ -40,11 +44,11 @@ class StatsdClient implements StatsdClientInterface
     /**
      * Throws an exc only if failSilently if  getFailSilently is false.
      *
-     * @param \Exception $exception
+     * @param Exception $exception
      *
-     * @throws \Exception
+     * @throws Exception
      */
-    private function throwException(\Exception $exception)
+    private function throwException(Exception $exception)
     {
         if (!$this->getFailSilently()) {
             throw $exception;
@@ -123,6 +127,12 @@ class StatsdClient implements StatsdClientInterface
      *
      * {@inheritDoc}
      */
+    /**
+     * @param $data
+     * @param int $sampleRate
+     * @return int|mixed|void
+     * @throws Exception
+     */
     public function send($data, $sampleRate = 1)
     {
         // check format
@@ -151,7 +161,7 @@ class StatsdClient implements StatsdClientInterface
                 $written += $this->getSender()->write($fp, $message);
             }
             $this->getSender()->close($fp);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->throwException($e);
         }
 
@@ -175,7 +185,7 @@ class StatsdClient implements StatsdClientInterface
     }
 
     /**
-     * @param \Liuggio\StatsdClient\Sender\SenderInterface $sender
+     * @param SenderInterface $sender
      */
     public function setSender(SenderInterface $sender)
     {
@@ -183,7 +193,7 @@ class StatsdClient implements StatsdClientInterface
     }
 
     /**
-     * @return \Liuggio\StatsdClient\Sender\SenderInterface
+     * @return SenderInterface
      */
     public function getSender()
     {

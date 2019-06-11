@@ -2,10 +2,10 @@
 
 namespace Liuggio\StatsdClient;
 
-use Liuggio\StatsdClient\Sender\SenderInterface;
-use Liuggio\StatsdClient\Entity\StatsdDataInterface;
-use Liuggio\StatsdClient\Exception\InvalidArgumentException;
-
+/**
+ * Interface StatsdClientInterface
+ * @package Liuggio\StatsdClient
+ */
 Interface StatsdClientInterface
 {
     const MAX_UDP_SIZE_STR = 512;
@@ -18,6 +18,11 @@ Interface StatsdClientInterface
      * @param int $sampleRate Tells StatsD that this counter is being sent sampled every Xth of the time.
      *
      * @return integer the data sent in bytes
+     */
+    /**
+     * @param $data
+     * @param int $sampleRate
+     * @return mixed
      */
     function send($data, $sampleRate = 1);
 }

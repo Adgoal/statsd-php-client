@@ -4,12 +4,22 @@ namespace Liuggio\StatsdClient\Sender;
 
 use Liuggio\StatsdClient\Exception\InvalidArgumentException;
 
+/**
+ * Class SocketSender
+ * @package Liuggio\StatsdClient\Sender
+ */
 Class SocketSender implements SenderInterface
 {
     private $port;
     private $host;
     private $protocol;
 
+    /**
+     * SocketSender constructor.
+     * @param string $hostname
+     * @param int $port
+     * @param string $protocol
+     */
     public function __construct($hostname = 'localhost', $port = 8126, $protocol = 'udp')
     {
         $this->host = $hostname;
@@ -56,31 +66,49 @@ Class SocketSender implements SenderInterface
     }
 
 
+    /**
+     * @param $host
+     */
     protected function setHost($host)
     {
         $this->host = $host;
     }
 
+    /**
+     * @return string
+     */
     protected function getHost()
     {
         return $this->host;
     }
 
+    /**
+     * @param $port
+     */
     protected function setPort($port)
     {
         $this->port = $port;
     }
 
+    /**
+     * @return int
+     */
     protected function getPort()
     {
         return $this->port;
     }
 
+    /**
+     * @param $protocol
+     */
     protected function setProtocol($protocol)
     {
         $this->protocol = $protocol;
     }
 
+    /**
+     * @return int
+     */
     protected function getProtocol()
     {
         return $this->protocol;

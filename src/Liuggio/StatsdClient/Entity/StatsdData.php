@@ -2,8 +2,10 @@
 
 namespace Liuggio\StatsdClient\Entity;
 
-use Liuggio\StatsdClient\Entity\StatsdDataInterface;
-
+/**
+ * Class StatsdData
+ * @package Liuggio\StatsdClient\Entity
+ */
 class StatsdData implements StatsdDataInterface
 {
 
@@ -45,11 +47,17 @@ class StatsdData implements StatsdDataInterface
     }
 
 
+    /**
+     * @param $metric
+     */
     public function setMetric($metric)
     {
         $this->metric = $metric;
     }
 
+    /**
+     * @return string
+     */
     public function getMetric()
     {
         return $this->metric;

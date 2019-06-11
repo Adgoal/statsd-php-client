@@ -79,7 +79,7 @@ class StatsDHandler extends AbstractProcessingHandler
     /**
      * Gets the default formatter.
      *
-     * @return FormatterInterface
+     * @return StatsDFormatter
      */
     protected function getDefaultFormatter()
     {

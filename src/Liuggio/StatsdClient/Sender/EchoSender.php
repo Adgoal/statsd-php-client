@@ -3,6 +3,10 @@
 namespace Liuggio\StatsdClient\Sender;
 
 
+/**
+ * Class EchoSender
+ * @package Liuggio\StatsdClient\Sender
+ */
 Class EchoSender implements SenderInterface
 {
     /**
@@ -10,7 +14,7 @@ Class EchoSender implements SenderInterface
      */
     public function open()
     {
-        echo "[open]";
+        echo '[open]';
 
         return true;
     }
@@ -18,7 +22,7 @@ Class EchoSender implements SenderInterface
     /**
      * {@inheritDoc}
      */
-    function write($handle, $message, $length = null)
+    public function write($handle, $message, $length = null)
     {
         echo "[$message]";
 
@@ -28,8 +32,8 @@ Class EchoSender implements SenderInterface
     /**
      * {@inheritDoc}
      */
-    function close($handle)
+    public function close($handle)
     {
-        echo "[closed]";
+        echo '[closed]';
     }
 }

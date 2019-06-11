@@ -3,10 +3,18 @@
 namespace Liuggio\StatsdClient\Sender;
 
 
+/**
+ * Class SysLogSender
+ * @package Liuggio\StatsdClient\Sender
+ */
 Class SysLogSender implements SenderInterface
 {
     private $priority;
 
+    /**
+     * SysLogSender constructor.
+     * @param int $priority
+     */
     public function __construct($priority = LOG_INFO)
     {
         $this->priority = $priority;
@@ -17,7 +25,7 @@ Class SysLogSender implements SenderInterface
      */
     public function open()
     {
-        syslog($this->priority, "statsd-client-open");
+        syslog($this->priority, 'statsd-client-open');
 
         return true;
     }
@@ -25,9 +33,9 @@ Class SysLogSender implements SenderInterface
     /**
      * {@inheritDoc}
      */
-    function write($handle, $message, $length = null)
+    public function write($handle, $message, $length = null)
     {
-        syslog($this->priority, sprintf("statsd-client-write \"%s\" %d Bytes", $message, strlen($message)));
+        syslog($this->priority, sprintf('statsd-client-write "%s" %d Bytes', $message, strlen($message)));
 
         return strlen($message);
     }
@@ -35,8 +43,8 @@ Class SysLogSender implements SenderInterface
     /**
      * {@inheritDoc}
      */
-    function close($handle)
+    public function close($handle)
     {
-        syslog($this->priority, "statsd-client-close");
+        syslog($this->priority, 'statsd-client-close');
     }
 }

@@ -2,11 +2,14 @@
 
 namespace Liuggio\StatsdClient\Service;
 
+use BadFunctionCallException;
+use Closure;
 use Liuggio\StatsdClient\Entity\StatsdDataInterface;
 use Liuggio\StatsdClient\Factory\StatsdDataFactory;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use Liuggio\StatsdClient\StatsdClient;
 use Liuggio\StatsdClient\Entity\StatsdData;
+use LogicException;
 
 /**
  * Simplifies access to StatsD client and factory, buffers all data.
@@ -14,12 +17,12 @@ use Liuggio\StatsdClient\Entity\StatsdData;
 class StatsdService implements StatsdDataFactoryInterface
 {
     /**
-     * @var \Liuggio\StatsdClient\StatsdClient
+     * @var StatsdClient
      */
     protected $client;
 
     /**
-     * @var \Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface
+     * @var StatsdDataFactoryInterface
      */
     protected $factory;
 
@@ -36,9 +39,9 @@ class StatsdService implements StatsdDataFactoryInterface
     private $samplingFunction;
 
     /**
-     * @param StatsdClient               $client
+     * @param StatsdClient $client
      * @param StatsdDataFactoryInterface $factory
-     * @param float                      $samplingRate see setSamplingRate
+     * @param int $samplingRate see setSamplingRate
      */
     public function __construct(
         StatsdClient $client,
@@ -64,7 +67,7 @@ class StatsdService implements StatsdDataFactoryInterface
     public function setSamplingRate($samplingRate)
     {
         if ($samplingRate <= 0.0 || 1.0 < $samplingRate) {
-            throw new \LogicException('Sampling rate shall be within ]0, 1]');
+            throw new LogicException('Sampling rate shall be within ]0, 1]');
         }
         $this->samplingRate = $samplingRate;
         $this->samplingFunction = function($min, $max){
@@ -157,17 +160,20 @@ class StatsdService implements StatsdDataFactoryInterface
      */
     public function produceStatsdData($key, $value = 1, $metric = StatsdDataInterface::STATSD_METRIC_COUNT)
     {
-        throw new \BadFunctionCallException('produceStatsdData is not implemented');
+        throw new BadFunctionCallException('produceStatsdData is not implemented');
     }
 
     /**
-     * @param callable $samplingFunction rand() function by default.
+     * @param Closure $samplingFunction rand() function by default.
      */
-    public function setSamplingFunction(\Closure $samplingFunction)
+    public function setSamplingFunction(Closure $samplingFunction)
     {
         $this->samplingFunction = $samplingFunction;
     }
 
+    /**
+     * @param StatsdData $data
+     */
     private function appendToBuffer(StatsdData $data)
     {
         if($this->samplingRate < 1){
@@ -185,6 +191,7 @@ class StatsdService implements StatsdDataFactoryInterface
      * Send all buffered data to statsd.
      *
      * @return $this
+     * @throws \Exception
      */
     public function flush()
     {

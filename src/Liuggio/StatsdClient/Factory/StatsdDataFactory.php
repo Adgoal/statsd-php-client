@@ -4,6 +4,10 @@ namespace Liuggio\StatsdClient\Factory;
 
 use Liuggio\StatsdClient\Entity\StatsdDataInterface;
 
+/**
+ * Class StatsdDataFactory
+ * @package Liuggio\StatsdClient\Factory
+ */
 class StatsdDataFactory implements StatsdDataFactoryInterface
 {
     /**
@@ -11,6 +15,10 @@ class StatsdDataFactory implements StatsdDataFactoryInterface
      */
     private $entityClass;
 
+    /**
+     * StatsdDataFactory constructor.
+     * @param string $entity_class
+     */
     public function __construct($entity_class = '\Liuggio\StatsdClient\Entity\StatsdData')
     {
         $this->setEntityClass($entity_class);

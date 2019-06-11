@@ -2,13 +2,17 @@
 
 namespace Liuggio\StatsdClient\Sender;
 
+/**
+ * Interface SenderInterface
+ * @package Liuggio\StatsdClient\Sender
+ */
 Interface SenderInterface
 {
     /**
      * @abstract
      * @return mixed
      */
-    function open();
+    public function open();
 
     /**
      * @abstract
@@ -19,7 +23,7 @@ Interface SenderInterface
      *
      * @return mixed
      */
-    function write($handle, $string, $length = null);
+    public function write($handle, $string, $length = null);
 
     /**
      * @abstract
@@ -28,5 +32,5 @@ Interface SenderInterface
      *
      * @return mixed
      */
-    function close($handle);
+    public function close($handle);
 }

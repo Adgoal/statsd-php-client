@@ -2,6 +2,10 @@
 
 namespace Liuggio\StatsdClient\Entity;
 
+/**
+ * Interface StatsdDataInterface
+ * @package Liuggio\StatsdClient\Entity
+ */
 interface StatsdDataInterface
 {
     CONST STATSD_METRIC_TIMING = 'ms';

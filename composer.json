@@ -6,7 +6,9 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": ">=5.3.2"
+        "php": ">=5.6",
+        "ext-sockets": "*",
+        "ext-json": "*"
     },
     "authors": [
         {

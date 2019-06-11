@@ -4,6 +4,10 @@ namespace Liuggio\StatsdClient\Factory;
 
 use Liuggio\StatsdClient\Entity\StatsdDataInterface;
 
+/**
+ * Interface StatsdDataFactoryInterface
+ * @package Liuggio\StatsdClient\Factory
+ */
 Interface StatsdDataFactoryInterface
 {
 
@@ -15,7 +19,7 @@ Interface StatsdDataFactoryInterface
      * @param string|array $key  The metric(s) to set.
      * @param float        $time The elapsed time (ms) to log
      **/
-    function timing($key, $time);
+    public function timing($key, $time);
 
     /**
      * This function creates a 'gauge' StatsdData.
@@ -25,7 +29,7 @@ Interface StatsdDataFactoryInterface
      * @param string|array $key   The metric(s) to set.
      * @param float        $value The value for the stats.
      **/
-    function gauge($key, $value);
+    public function gauge($key, $value);
 
     /**
      * This function creates a 'set' StatsdData object
@@ -46,7 +50,7 @@ Interface StatsdDataFactoryInterface
      *
      * @return array
      **/
-    function set($key, $value);
+    public function set($key, $value);
 
     /**
      * This function creates a 'increment' StatsdData object.
@@ -54,11 +58,10 @@ Interface StatsdDataFactoryInterface
      * @abstract
      *
      * @param string|array $key        The metric(s) to increment.
-     * @param float|1      $sampleRate The rate (0-1) for sampling.
      *
      * @return array
      **/
-    function increment($key);
+    public function increment($key);
 
     /**
      * This function creates a 'decrement' StatsdData object.
@@ -66,23 +69,22 @@ Interface StatsdDataFactoryInterface
      * @abstract
      *
      * @param string|array $key        The metric(s) to decrement.
-     * @param float|1      $sampleRate The rate (0-1) for sampling.
      *
      * @return mixed
      **/
-    function decrement($key);
+    public function decrement($key);
 
     /**
      * This function creates a 'updateCount' StatsdData object.
      *
      * @abstract
      *
-     * @param string|array $key        The metric(s) to decrement.
-     * @param integer      $delta      The delta to add to the each metric
+     * @param string|array $key The metric(s) to decrement.
      *
+     * @param $delta
      * @return mixed
-     **/
-    function updateCount($key, $delta);
+     */
+    public function updateCount($key, $delta);
 
     /**
      * Produce a StatsdDataInterface Object.
@@ -95,5 +97,5 @@ Interface StatsdDataFactoryInterface
      *
      * @return StatsdDataInterface
      **/
-    function produceStatsdData($key, $value = 1, $metric = StatsdDataInterface::STATSD_METRIC_COUNT);
+    public function produceStatsdData($key, $value = 1, $metric = StatsdDataInterface::STATSD_METRIC_COUNT);
 }
