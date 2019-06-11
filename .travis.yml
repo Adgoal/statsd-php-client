@@ -8,7 +8,7 @@ matrix:
         - php: 7
         - php: 7.1
         - php: 7.2
-        - php: hhvm
+        - php: 7.3
     fast_finish: true
 
 before_script:
@@ -17,3 +17,7 @@ before_script:
   - if [ "$deps" != "low" ]; then composer install --prefer-source; fi
 
 script: ./vendor/bin/phpunit
+
+
+after_success:
+  - travis_retry php ./vendor/bin/php-coveralls -v --config .coveralls.yml -v;
