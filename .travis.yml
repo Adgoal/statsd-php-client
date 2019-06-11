@@ -17,3 +17,7 @@ before_script:
   - if [ "$deps" != "low" ]; then composer install --prefer-source; fi
 
 script: ./vendor/bin/phpunit
+
+
+after_success:
+  - travis_retry php ./vendor/bin/php-coveralls -v --config .coveralls.yml -v;

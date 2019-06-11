@@ -28,7 +28,8 @@
     },
     "require-dev": {
         "monolog/monolog": ">=1.2.0",
-        "phpunit/phpunit": "^4.7"
+        "phpunit/phpunit": "^4.7",
+        "php-coveralls/php-coveralls": "^2.1"
     },
     "suggest": {
         "monolog/monolog": "Monolog, in order to do generate statistic from log >=1.2.0)"
