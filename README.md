@@ -1,27 +1,33 @@
 ## statsd-php-client
 
-[![Build Status](https://secure.travis-ci.org/liuggio/statsd-php-client.png)](http://travis-ci.org/liuggio/statsd-php-client) [![Latest Stable Version](https://poser.pugx.org/liuggio/statsd-php-client/v/stable.png)](https://packagist.org/packages/liuggio/statsd-php-client) [![Total Downloads](https://poser.pugx.org/liuggio/statsd-php-client/downloads.png)](https://packagist.org/packages/liuggio/statsd-php-client)
+[![Build Status](https://secure.travis-ci.org/adgoal/statsd-php-client.png)](http://travis-ci.org/adgoal/statsd-php-client) 
+[![Latest Stable Version](https://poser.pugx.org/adgoal/statsd-php-client/v/stable.png)](https://packagist.org/packages/adgoal/statsd-php-client) 
+[![Total Downloads](https://poser.pugx.org/adgoal/statsd-php-client/downloads.png)](https://packagist.org/packages/adgoal/statsd-php-client)
+[![Coverage Status](https://coveralls.io/repos/github/Adgoal/statsd-php-client/badge.svg)](https://coveralls.io/github/Adgoal/statsd-php-client)
+
 
 `statsd-php-client` is an Open Source, and **Object Oriented** Client for **etsy/statsd** written in php
  
 ### Install with composer
 
 ```bash
-composer require liuggio/statsd-php-client
+composer require adgoal/statsd-php-client
 ```
 
 ### Simple Usage
 
 ```php
+use Liuggio\StatsdClient\Service\StatsdService;
+
 $statsd = new StatsdService();
 
-$service->timing('usageTime', 100);
-$service->increment('visitor');
-$service->decrement('click');
-$service->gauge('gaugor', 333);
-$service->set('uniques', 765);
+$statsd->timing('usageTime', 100);
+$statsd->increment('visitor');
+$statsd->decrement('click');
+$statsd->gauge('gaugor', 333);
+$statsd->set('uniques', 765);
 
-$service->flush();
+$statsd->flush();
 ```
 
 
@@ -55,7 +61,7 @@ $sender = new SocketSender(/*'localhost', 8126, 'udp'*/);
 // $sender = new SysLogSender(); // enabling this, the packet will not send over the socket
 
 $client  = new StatsdClient($sender);
-$factory = new StatsdDataFactory('\Liuggio\StatsdClient\Entity\StatsdData');
+$factory = new StatsdDataFactory(Liuggio\StatsdClient\Entity\StatsdData::class);
 $service = new StatsdService($client, $factory);
 
 // create the metrics with the service
