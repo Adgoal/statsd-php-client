@@ -17,10 +17,14 @@
         }
     ],
     "autoload": {
-        "psr-0": {"Liuggio": "src/"}
+        "psr-4": {
+            "Liuggio\\StatsdClient\\": "src"
+        }
     },
     "autoload-dev": {
-      "psr-0": {"Liuggio": "tests/"}
+        "psr-4": {
+            "Liuggio\\StatsdClient\\": "tests"
+        }
     },
     "require-dev": {
         "monolog/monolog": ">=1.2.0",
